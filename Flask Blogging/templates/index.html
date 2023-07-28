@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Flask Blogging</title>
+    <style>
+        body {
+            background-color:blueviolet;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        li a {
+            color: black;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        li a:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            display: inline;
+        }
+
+        button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c82333;
+        }
+
+        a.create-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Flask Blog</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="{{ url_for('view_post', post_id=post['id']) }}">
+                    {{ post['title'] }}
+                </a>
+                <form action="{{ url_for('delete_post', post_id=post['id']) }}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('new_post') }}" class="create-link">Create New Post</a>
+</body>
+</html>
